@@ -9,5 +9,6 @@ A lightweight Android unit converter app by Mark. Quickly switch between tempera
 *   Gemini
 
 ### Tech Stack
-*   Material 3
+*   Kotlin Coroutines
 *   Jetpack Compose
+*   Material 3
