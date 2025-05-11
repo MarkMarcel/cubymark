@@ -1,3 +1,40 @@
 <resources>
     <string name="app_name">CU.ByMark</string>
+    <string name="conversion_result_template">That will be %1$s %2$s</string>
+    <string name="enter_value_label">Enter Value</string>
+    <string name="swap_units_content_description">Swap Units</string>
+    <string name="convert_button_text">Convert</string>
+
+    <!-- Quantity Types -->
+    <string name="distance_quantity_type">Distance</string>
+    <string name="mass_quantity_type">Mass</string>
+    <string name="temperature_quantity_type">Temperature</string>
+
+    <!-- Distance Units -->
+    <string name="meters_distance_unit">Meters</string>
+    <string name="feet_distance_unit">Feet</string>
+    <string name="inches_distance_unit">Inches</string>
+    <!-- Distance Unit Symbols -->
+    <string name="meters_distance_unit_symbol">m</string>
+    <string name="feet_distance_unit_symbol">ft</string>
+    <string name="inches_distance_unit_symbol">in</string>
+
+    <!-- Mass Units -->
+    <string name="kilograms_mass_unit">Kilograms</string>
+    <string name="pounds_mass_unit">Pounds</string>
+    <string name="ounces_mass_unit">Ounces</string>
+    <!-- Mass Unit Symbols -->
+    <string name="kilograms_mass_unit_symbol">kg</string>
+    <string name="pounds_mass_unit_symbol">lb</string>
+    <string name="ounces_mass_unit_symbol">oz</string>
+
+    <!-- Temperature Units -->
+    <string name="celsius_temperature_unit">Celsius</string>
+    <string name="fahrenheit_temperature_unit">Fahrenheit</string>
+    <string name="kelvin_temperature_unit">Kelvin</string>
+    <!-- Temperature Unit Symbols -->
+    <string name="celsius_temperature_unit_symbol">°C</string>
+    <string name="fahrenheit_temperature_unit_symbol">°F</string>
+    <string name="kelvin_temperature_unit_symbol">K</string>
+
 </resources>
