@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CU.ByMark"
+rootProject.name = "CUByMark"
 include(":app")

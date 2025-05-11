@@ -54,6 +54,8 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     androidTestImplementation(libs.compose.test)
     debugImplementation(libs.compose.test.manifest)
+    // ViewModel
+    implementation(libs.compose.viewmodel)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

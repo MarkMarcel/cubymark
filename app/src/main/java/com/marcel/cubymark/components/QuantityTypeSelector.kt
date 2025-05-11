@@ -24,10 +24,11 @@ import com.marcel.cubymark.unitconversion.models.QuantityType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun QuantityTypeSelector(
+fun QuantityTypeSelector(
     modifier: Modifier = Modifier,
     selectedQuantityType: QuantityType?,
-    onQuantityTypeSelected: (unit: QuantityType) -> Unit
+    onQuantityTypeSelected: (unit: QuantityType) -> Unit,
+    testTags: Map<String, String> = emptyMap()
 ) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }

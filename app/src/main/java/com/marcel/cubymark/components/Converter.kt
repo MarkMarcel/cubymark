@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -44,12 +42,13 @@ import com.marcel.cubymark.unitconversion.models.TemperatureUnit
 @Composable
 fun TwoWayConverter(
     modifier: Modifier = Modifier,
-    convertFromQuantityType: QuantityType,
+    conversionQuantityType: QuantityType,
     convertFromUnit: QuantityUnit?,
     convertFromValue: String,
-    convertToQuantityType: QuantityType,
     convertToUnit: QuantityUnit?,
     convertToValue: String,
+    message: String?,
+    testTags: Map<String, String> = emptyMap(),
     onConvertFromValueChange: (value: String) -> Unit,
     onConvertFromUnitChange: (unit: QuantityUnit) -> Unit,
     onConvertToUnitChange: (unit: QuantityUnit) -> Unit,
@@ -62,29 +61,39 @@ fun TwoWayConverter(
     ) {
         UnitsSelection(
             modifier = Modifier.fillMaxWidth(),
-            convertFromQuantityType = convertFromQuantityType,
+            conversionQuantityType = conversionQuantityType,
             convertFromUnit = convertFromUnit,
-            convertToQuantityType = convertToQuantityType,
             convertToUnit = convertToUnit,
+            testTags = testTags,
             onConvertFromUnitChange = onConvertFromUnitChange,
             onConvertToUnitChange = onConvertToUnitChange,
             onSwapUnits = onSwapUnits
         )
         Spacer(modifier = Modifier.height(baseSpacing))
+        if (message != null) {
+            Text(
+                text = message,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
+        Spacer(modifier = Modifier.height(baseSpacing))
         ConvertFromValueTextField(
             modifier = Modifier.fillMaxWidth(),
             value = convertFromValue,
+            testTags = testTags,
             onValueChange = onConvertFromValueChange,
             label = { Text(stringResource(R.string.enter_value_label)) }
         )
         Spacer(modifier = Modifier.height(baseSpacing))
         ConvertButton(
             modifier = Modifier.fillMaxWidth(),
+            testTags = testTags,
             onClick = onConvertClick
         )
         Spacer(modifier = Modifier.height(baseSpacing))
         ConvertedValueDisplay(
             modifier = Modifier.fillMaxWidth(),
+            testTags = testTags,
             convertedValue = convertToValue,
             convertedUnit = convertToUnit
         )
@@ -94,10 +103,10 @@ fun TwoWayConverter(
 @Composable
 private fun UnitsSelection(
     modifier: Modifier = Modifier,
-    convertFromQuantityType: QuantityType,
+    conversionQuantityType: QuantityType,
     convertFromUnit: QuantityUnit?,
-    convertToQuantityType: QuantityType,
     convertToUnit: QuantityUnit?,
+    testTags: Map<String, String> = emptyMap(),
     onConvertFromUnitChange: (unit: QuantityUnit) -> Unit,
     onConvertToUnitChange: (unit: QuantityUnit) -> Unit,
     onSwapUnits: () -> Unit
@@ -108,18 +117,21 @@ private fun UnitsSelection(
     ) {
         UnitSelector(
             modifier = Modifier.weight(1f),
-            quantityType = convertFromQuantityType,
+            quantityType = conversionQuantityType,
             selectedUnit = convertFromUnit,
+            testTags = testTags, // Todo: Filter
             onUnitSelected = onConvertFromUnitChange
         )
         Spacer(modifier = Modifier.padding(baseSpacing))
         SwapConversionUnits(
+            testTags = testTags,
             onSwapUnits = onSwapUnits
         )
         Spacer(modifier = Modifier.padding(baseSpacing))
         UnitSelector(
-            modifier = Modifier.weight(1f), // Unit selectors share rest of space
-            quantityType = convertToQuantityType,
+            modifier = Modifier.weight(1f),
+            quantityType = conversionQuantityType,
+            testTags = testTags, // Todo: Filter
             selectedUnit = convertToUnit,
             onUnitSelected = onConvertToUnitChange
         )
@@ -130,6 +142,7 @@ private fun UnitsSelection(
 private fun ConvertFromValueTextField(
     modifier: Modifier = Modifier,
     value: String,
+    testTags: Map<String, String> = emptyMap(),
     onValueChange: (value: String) -> Unit,
     label: @Composable (() -> Unit)? = null
 ) {
@@ -150,6 +163,7 @@ private fun ConvertFromValueTextField(
 @Composable
 private fun ConvertButton(
     modifier: Modifier = Modifier,
+    testTags: Map<String, String> = emptyMap(),
     onClick: () -> Unit
 ) {
     OutlinedButton(
@@ -164,7 +178,8 @@ private fun ConvertButton(
 private fun ConvertedValueDisplay(
     modifier: Modifier = Modifier,
     convertedValue: String,
-    convertedUnit: QuantityUnit?
+    convertedUnit: QuantityUnit?,
+    testTags: Map<String, String> = emptyMap(),
 ) {
     val context = LocalContext.current
     // Get the symbol for the converted unit
@@ -192,8 +207,9 @@ private fun ConvertedValueDisplay(
 
 @Composable
 private fun SwapConversionUnits(
-    onSwapUnits: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    testTags: Map<String, String> = emptyMap(),
+    onSwapUnits: () -> Unit
 ) {
     IconButton(
         onClick = onSwapUnits,
@@ -211,6 +227,7 @@ private fun SwapConversionUnits(
 private fun UnitSelector(
     modifier: Modifier = Modifier,
     quantityType: QuantityType,
+    testTags: Map<String, String> = emptyMap(),
     selectedUnit: QuantityUnit?,
     onUnitSelected: (unit: QuantityUnit) -> Unit
 ) {
@@ -290,12 +307,12 @@ private fun getUnitDisplaySymbol(context: Context, unit: QuantityUnit): String {
 @Composable
 fun TwoWayConverterDistancePreview() {
     TwoWayConverter(
-        convertFromQuantityType = QuantityType.DISTANCE,
+        conversionQuantityType = QuantityType.DISTANCE,
         convertFromUnit = DistanceUnit.METERS,
         convertFromValue = "10.0",
-        convertToQuantityType = QuantityType.DISTANCE,
         convertToUnit = DistanceUnit.FEET,
         convertToValue = "32.8084",
+        message = null,
         onConvertFromValueChange = {},
         onConvertFromUnitChange = {},
         onConvertToUnitChange = {},
@@ -308,12 +325,12 @@ fun TwoWayConverterDistancePreview() {
 @Composable
 fun TwoWayConverterMassPreview() {
     TwoWayConverter(
-        convertFromQuantityType = QuantityType.MASS,
+        conversionQuantityType = QuantityType.MASS,
         convertFromUnit = MassUnit.KILOGRAMS,
         convertFromValue = "5.0",
-        convertToQuantityType = QuantityType.MASS,
         convertToUnit = MassUnit.POUNDS,
         convertToValue = "11.0231",
+        message = null,
         onConvertFromValueChange = {},
         onConvertFromUnitChange = {},
         onConvertToUnitChange = {},
@@ -326,12 +343,12 @@ fun TwoWayConverterMassPreview() {
 @Composable
 fun TwoWayConverterTemperaturePreview() {
     TwoWayConverter(
-        convertFromQuantityType = QuantityType.TEMPERATURE,
+        conversionQuantityType = QuantityType.TEMPERATURE,
         convertFromUnit = TemperatureUnit.CELSIUS,
         convertFromValue = "25.0",
-        convertToQuantityType = QuantityType.TEMPERATURE,
         convertToUnit = TemperatureUnit.FAHRENHEIT,
         convertToValue = "77.0",
+        message = null,
         onConvertFromValueChange = {},
         onConvertFromUnitChange = {},
         onConvertToUnitChange = {},

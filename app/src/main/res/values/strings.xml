@@ -5,6 +5,11 @@
     <string name="swap_units_content_description">Swap Units</string>
     <string name="convert_button_text">Convert</string>
 
+    <!-- Instructions -->
+    <string name="step_1_instruction">Pick a quantity type</string>
+    <string name="step_2_instruction">Pick units to convert from and to</string>
+    <string name="step_3_instruction">Enter a value and convert</string>
+
     <!-- Quantity Types -->
     <string name="distance_quantity_type">Distance</string>
     <string name="mass_quantity_type">Mass</string>

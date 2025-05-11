@@ -1,10 +1,12 @@
-package com.marcel.cubymark.data
+package com.marcel.cubymark.unitconversion.data
 
 import com.marcel.cubymark.unitconversion.DistanceConverter
 import com.marcel.cubymark.unitconversion.MassConverter
 import com.marcel.cubymark.unitconversion.TemperatureConverter
 import com.marcel.cubymark.unitconversion.models.DistanceUnit
+import com.marcel.cubymark.unitconversion.models.MassUnit
 import com.marcel.cubymark.unitconversion.models.Measurement
+import com.marcel.cubymark.unitconversion.models.TemperatureUnit
 
 // No interface created because there's isn't really any state for the app
 class UnitConversionRepository(
@@ -21,14 +23,14 @@ class UnitConversionRepository(
 
     suspend fun convertMass(
         measurement: Measurement,
-        targetUnit: DistanceUnit
+        targetUnit: MassUnit
     ): Result<Measurement> {
         return massConverter.convert(measurement, targetUnit)
     }
 
     suspend fun convertTemperature(
         measurement: Measurement,
-        targetUnit: DistanceUnit
+        targetUnit: TemperatureUnit
     ): Result<Measurement> {
         return temperatureConverter.convert(measurement, targetUnit)
     }
