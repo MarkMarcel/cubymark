@@ -149,8 +149,7 @@ private fun ConvertFromValueTextField(
     OutlinedTextField(
         value = value,
         onValueChange = { newValue ->
-            // Allow only numbers up to 6 decimal places
-            if (newValue.isEmpty() || newValue.matches(Regex("^\\d*\\.?\\d{0,6}\$"))) {
+            if (newValue.isEmpty() || newValue == "-" || newValue.matches(Regex("^-?\\d*\\.?\\d{0,6}\$"))) {
                 onValueChange(newValue)
             }
         },
