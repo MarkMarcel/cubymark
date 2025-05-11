@@ -4,7 +4,22 @@ import android.content.Context
 import com.marcel.cubymark.R
 import com.marcel.cubymark.unitconversion.models.DistanceUnit
 import com.marcel.cubymark.unitconversion.models.MassUnit
+import com.marcel.cubymark.unitconversion.models.QuantityType
 import com.marcel.cubymark.unitconversion.models.TemperatureUnit
+
+/**
+ * Returns the display name for a given [QuantityType].
+ */
+internal fun quantityTypeName(
+    context: Context,
+    quantityType: QuantityType
+): String {
+    return when (quantityType) {
+        QuantityType.DISTANCE -> context.getString(R.string.distance_quantity_type)
+        QuantityType.MASS -> context.getString(R.string.mass_quantity_type)
+        QuantityType.TEMPERATURE -> context.getString(R.string.temperature_quantity_type)
+    }
+}
 
 /**
  * Returns the display name for a given DistanceUnit.
