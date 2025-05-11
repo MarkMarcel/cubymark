@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 /**
  * Represents the current state of the unit conversion screen.
@@ -181,9 +182,12 @@ class UnitConversionScreenViewModel(
             // Update the state based on the conversion result
             conversionResult.fold(
                 onSuccess = { convertedMeasurement ->
+                    // Format the converted value to two decimal places
+                    val formattedValue =
+                        String.format(Locale.getDefault(), "%.2f", convertedMeasurement.value)
                     _state.update {
                         it.copy(
-                            convertToValue = convertedMeasurement.value.toString(),
+                            convertToValue = formattedValue,
                             message = null
                         )
                     }

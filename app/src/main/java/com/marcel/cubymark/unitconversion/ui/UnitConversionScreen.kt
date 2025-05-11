@@ -1,5 +1,6 @@
 package com.marcel.cubymark.unitconversion.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -35,13 +37,15 @@ import com.marcel.cubymark.unitconversion.models.QuantityUnit
 
 @Composable
 fun UnitConversionScreen(
-    modifier: Modifier = Modifier,
     viewModel: UnitConversionScreenViewModel,
 ) {
     val state: UnitConversionScreenState by viewModel.state.collectAsStateWithLifecycle()
     Scaffold(
-        modifier = modifier.nestedScroll(rememberNestedScrollInteropConnection()),
-        topBar = { UnitConversionTopBar() },
+        topBar = {
+            UnitConversionTopBar(
+                Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
+            )
+        },
     ) { padding ->
         UnitConversionScreenContent(
             modifier = Modifier
@@ -122,11 +126,17 @@ private fun UnitConversionScreenContent(
 }
 
 @Composable
-private fun UnitConversionTopBar() {
-    Text(
-        stringResource(R.string.app_name),
-        style = MaterialTheme.typography.displayLarge,
-    )
+private fun UnitConversionTopBar(
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier.padding(horizontal = baseSpacing)
+    ) {
+        Text(
+            stringResource(R.string.app_name),
+            style = MaterialTheme.typography.displayLarge,
+        )
+    }
 }
 
 @Composable

@@ -20,7 +20,6 @@ class CUByMarkActivity : ComponentActivity() {
         setContent {
             CubyMarkTheme {
                 UnitConversionScreen(
-                    Modifier.windowInsetsPadding(WindowInsets.safeDrawing),
                     viewModel(factory = UnitConversionScreenViewModel.Factory)
                 )
             }
