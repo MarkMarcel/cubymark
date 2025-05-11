@@ -16,6 +16,9 @@ A lightweight Android unit converter app by Mark. Quickly switch between tempera
 *   Jetpack Compose
 *   Material 3
 
+### Testing Strategy
+Focus is on testing use cases from the user's perspectives. Using compose tests for test how user interactions deliver expected UI changes 
+
 ### Screenshots
 
 | Screenshot 1 | Screenshot 2 |

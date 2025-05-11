@@ -18,9 +18,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import com.marcel.cubymark.theme.baseSpacing
 import com.marcel.cubymark.unitconversion.models.QuantityType
+
+const val DISPLAYED_QUANTITY_TYPE_NAME_TEST_TAG = "DISPLAYED_QUANTITY_TYPE_NAME"
+const val QUANTITY_TYPE_SELECTOR_TEST_TAG = "QUANTITY_TYPE_SELECTOR"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +47,12 @@ fun QuantityTypeSelector(
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .conditional(
+                testTags.containsKey(QUANTITY_TYPE_SELECTOR_TEST_TAG),
+                ifTrue = { testTag(testTags[QUANTITY_TYPE_SELECTOR_TEST_TAG]!!) },
+            )
     ) {
         OutlinedTextField(
             value = selectedQuantityTypeName,
@@ -54,7 +63,11 @@ fun QuantityTypeSelector(
                 .menuAnchor(
                     type = MenuAnchorType.PrimaryNotEditable
                 )
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .conditional(
+                    testTags.containsKey(DISPLAYED_QUANTITY_TYPE_NAME_TEST_TAG),
+                    ifTrue = { testTag(testTags[DISPLAYED_QUANTITY_TYPE_NAME_TEST_TAG]!!) },
+                ),
             colors = ExposedDropdownMenuDefaults.textFieldColors()
         )
 

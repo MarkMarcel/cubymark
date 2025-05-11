@@ -46,14 +46,16 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.compose.activity)
+
     // Jetpack compose
     implementation(platform(libs.compose))
     implementation(libs.compose.activity)
     implementation(libs.compose.material3)
     implementation(libs.compose.ui.preview)
     debugImplementation(libs.compose.ui.tooling)
-    androidTestImplementation(libs.compose.test)
+    //androidTestImplementation(libs.compose.test)
     debugImplementation(libs.compose.test.manifest)
+    androidTestImplementation(libs.androidx.ui.test.junit4.android)
     // ViewModel
     implementation(libs.compose.viewmodel)
 
