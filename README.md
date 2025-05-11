@@ -17,6 +17,7 @@ A lightweight Android unit converter app by Mark. Quickly switch between tempera
 *   Material 3
 
 ### Screenshots
-![Screenshot_20250511_193542](https://github.com/user-attachments/assets/070a1e3b-5628-43b9-8797-3b89c27cdc78)
-![Screenshot_20250511_192623](https://github.com/user-attachments/assets/61aff29f-0e98-45db-80bc-6c3cf9a0d3d0)
 
+| Screenshot 1 | Screenshot 2 |
+|--------------|--------------|
+| ![Screenshot 1](https://github.com/user-attachments/assets/070a1e3b-5628-43b9-8797-3b89c27cdc78) | ![Screenshot 2](https://github.com/user-attachments/assets/61aff29f-0e98-45db-80bc-6c3cf9a0d3d0) |
