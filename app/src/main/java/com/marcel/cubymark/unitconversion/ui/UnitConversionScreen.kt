@@ -38,6 +38,7 @@ import com.marcel.cubymark.unitconversion.models.QuantityUnit
 @Composable
 fun UnitConversionScreen(
     viewModel: UnitConversionScreenViewModel,
+    testTags: Map<String, String> = emptyMap()
 ) {
     val state: UnitConversionScreenState by viewModel.state.collectAsStateWithLifecycle()
     Scaffold(
@@ -56,6 +57,7 @@ fun UnitConversionScreen(
             convertToUnit = state.convertToUnit,
             convertToValue = state.convertToValue,
             message = state.message,
+            testTags = testTags,
             onConvertFromValueChange = viewModel::onConvertFromValueChange,
             onConvertFromUnitChange = viewModel::onConvertFromUnitChange,
             onConvertToUnitChange = viewModel::onConvertToUnitChange,

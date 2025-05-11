@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -39,6 +40,12 @@ import com.marcel.cubymark.unitconversion.models.MassUnit
 import com.marcel.cubymark.unitconversion.models.QuantityType
 import com.marcel.cubymark.unitconversion.models.QuantityUnit
 import com.marcel.cubymark.unitconversion.models.TemperatureUnit
+
+const val CONVERT_BUTTON_TEST_TAG = "CONVERT_BUTTON"
+const val DISPLAYED_MESSAGE_TEST_TAG = "DISPLAYED_MESSAGE"
+const val DISPLAYED_RESULT_TEST_TAG = "DISPLAYED_RESULT"
+const val DISPLAYED_VALUE_TO_CONVERT_TEST_TAG = "DISPLAYED_VALUE_TO_CONVERT"
+const val SWAP_UNITS_TEST_TAG = "SWAP_UNITS"
 
 @Composable
 fun TwoWayConverter(
@@ -71,14 +78,17 @@ fun TwoWayConverter(
             onSwapUnits = onSwapUnits
         )
         Spacer(modifier = Modifier.height(baseSpacing))
-        if (message != null) {
-            Text(
-                text = message,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
+        Text(
+            text = message ?: "",
+            modifier = Modifier
+                .fillMaxWidth()
+                .conditional(
+                    testTags.containsKey(DISPLAYED_MESSAGE_TEST_TAG),
+                    ifTrue = { testTag(testTags[DISPLAYED_MESSAGE_TEST_TAG]!!) }
+                ),
+        )
         Spacer(modifier = Modifier.height(baseSpacing))
-        ConvertFromValueTextField(
+        ValueToConvertTextField(
             modifier = Modifier.fillMaxWidth(),
             value = convertFromValue,
             testTags = testTags,
@@ -140,7 +150,7 @@ private fun UnitsSelection(
 }
 
 @Composable
-private fun ConvertFromValueTextField(
+private fun ValueToConvertTextField(
     modifier: Modifier = Modifier,
     value: String,
     testTags: Map<String, String> = emptyMap(),
@@ -156,7 +166,10 @@ private fun ConvertFromValueTextField(
         },
         label = label,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number), // Show numeric keyboard
-        modifier = modifier
+        modifier = modifier.conditional(
+            testTags.containsKey(DISPLAYED_VALUE_TO_CONVERT_TEST_TAG),
+            ifTrue = { testTag(testTags[DISPLAYED_VALUE_TO_CONVERT_TEST_TAG]!!) }
+        )
     )
 }
 
@@ -200,7 +213,11 @@ private fun ConvertedValueDisplay(
             // Display a placeholder or empty string if no result yet
             ""
         },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .conditional(
+                testTags.containsKey(DISPLAYED_RESULT_TEST_TAG),
+                ifTrue = { testTag(testTags[DISPLAYED_RESULT_TEST_TAG]!!) }),
         style = MaterialTheme.typography.titleLarge,
         textAlign = TextAlign.Center
     )
